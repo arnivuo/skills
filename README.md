@@ -9,7 +9,7 @@ Agent skills by [@arnivuo](https://github.com/arnivuo).
 ## Install
 
 ```sh
-gh skill install arnivuo/skills --agent claude-code --scope user
+gh skill install arnivuo/skills implement-spec-stacked --agent claude-code --scope user
 # or
 npx skills add arnivuo/skills
 ```
@@ -18,5 +18,5 @@ npx skills add arnivuo/skills
 
 ```sh
 gh extension install github/gh-stack
-gh skill install github/gh-stack --agent claude-code --scope user
+gh skill install github/gh-stack gh-stack --agent claude-code --scope user
 ```

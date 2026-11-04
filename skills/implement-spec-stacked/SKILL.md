@@ -24,7 +24,7 @@ Load the `gh-stack` skill before the first `gh stack` command. It owns the CLI m
    | --- | --- | --- |
    | Forge | `git remote get-url origin` is on github.com | The stacked flow needs GitHub; use `/implement-spec` for a single PR. |
    | Extension | `gh extension list` shows `github/gh-stack` at v0.3.0 or newer | `gh extension install github/gh-stack`, or `gh extension upgrade stack` |
-   | Skill | `gh-stack` is in your available skills | `gh skill install github/gh-stack --agent claude-code --scope user` |
+   | Skill | `gh-stack` is in your available skills | `gh skill install github/gh-stack gh-stack --agent claude-code --scope user` |
    | Main checkout | `git status --porcelain` is empty | Commit or stash local changes first. |
    | Issue tracker | The repo documents its tracker (e.g. `docs/agents/issue-tracker.md`) | Run `/setup-matt-pocock-skills` |
 
