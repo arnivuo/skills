@@ -32,19 +32,21 @@ Load the `gh-stack` skill before the first `gh stack` command. It owns the CLI m
 
 3. (optional) Use an **exploration subagent** for any exploration the tickets need: relevant codebase files or external docs. It saves markdown notes in a directory outside the repo that every later subagent can read, so implementers focus on implementing.
 
-4. **Plan.** Present the plan and revise it until the user approves it. It contains:
+4. **Plan.** Draw the plan as a **stack diagram** in your message text, then ask for approval in a short question that points at it. Revise and redraw until the user approves. The plan contains:
    - **Base branch**: the repo's default branch (`gh repo view --json defaultBranchRef`). If the spec builds on an open, unmerged branch or stack, propose that instead as an explicit question.
-   - **Layers**, bottom to top: branch name and ticket. Branch names follow the repo's convention (see recent PRs). One ticket per layer; when you fold trivially small tickets into one layer, name the fold and why.
+   - **Layers**: branch name and ticket. Branch names follow the repo's convention (see recent PRs). One ticket per layer; when you fold trivially small tickets into one layer, name the fold and why.
    - **Parallel groups**.
    - **Mode**: _serial_ (one layer at a time, no rebases) or _parallel_ (one worktree per layer in a group, a rebase when the group lands). Recommend parallel only when a group holds two or more layers; otherwise recommend serial.
 
+   The diagram is a tree read top-down in stack order: base branch at the top, then one row per layer, each indented one step under the layer below it, with `└─` in front. Each row holds the branch name and ticket title. A parallel group gets a curly brace on the right edge of its rows, labelled `parallel`: `⎫ ⎭` for two rows, `⎫ ⎬ ⎭` for three, `⎪` filling longer groups.
+
    ```
-   Base: develop
-   1. WEB-101-store-model    WEB-101 Store model
-   2. WEB-102-store-api      WEB-102 Store API           ┐ parallel group
-   3. WEB-103-store-search   WEB-103 Store search index  ┘
-   4. WEB-104-store-page     WEB-104 Store page
-   Mode: parallel (recommended: layers 2-3 share no dependency)
+   develop (base)
+   └─ WEB-101-store-model  Store model
+      └─ WEB-102-store-api  Store API                       ⎫ parallel
+         └─ WEB-103-store-search  Store search index        ⎭
+            └─ WEB-104-store-page  Store page
+   Mode: parallel (recommended: WEB-102 and WEB-103 share no dependency)
    ```
 
    Done when the user approves the plan.
